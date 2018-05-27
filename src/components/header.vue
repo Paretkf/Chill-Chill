@@ -8,9 +8,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Login
-                <span class="sr-only">(current)</span>
+            <li class="nav-item">
+              <a class="nav-link" @click="userLogin">
+                Login
               </a>
             </li>
             <li class="nav-item">
@@ -30,9 +30,52 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 export default {
+  data () {
+    return {
+      newUser: {}
+    }
+  },
   mounted () {
   },
   methods: {
+    userLogin () {
+      this.$swal.mixin({
+        input: 'text',
+        confirmButtonText: 'Next',
+        showCancelButton: true,
+        cancelButtonText: 'Register',
+        progressSteps: ['1', '2']
+      }).queue([
+        {
+          title: 'Question 1',
+          text: 'Chaining swal2 modals is easy'
+        },
+        'Question 2'
+      ]).then((result) => {
+        if (result.value) {
+          this.$swal({
+            title: 'All done!',
+            html:
+              'Your answers: <pre>' +
+                JSON.stringify(result.value) +
+              '</pre>',
+            confirmButtonText: 'Lovely!'
+          })
+        } else if (
+          result.dismiss === this.$swal.DismissReason.cancel
+        ) {
+          // this.$swal({
+          //   title: 'All done!',
+          //   html:
+          //     'Your answers: <pre>' +
+          //       JSON.stringify(result.value) +
+          //     '</pre>',
+          //   confirmButtonText: 'Lovely!'
+          // })
+          this.$router.push({path: '/adduser'})
+        }
+      })
+    }
   },
   computed: {
   }

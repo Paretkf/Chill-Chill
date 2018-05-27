@@ -9,7 +9,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(t, index) in tag"
             :key="index" v-show="!(index === '.key')">
               {{t.name}}
-              <span class="badge badge-primary badge-pill">{{t.count}}</span>
+              <!-- <span class="badge badge-primary badge-pill">{{t.count}}</span> -->
             </li>
           </div>
 

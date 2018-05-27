@@ -17,7 +17,10 @@
                                 <input type="text" class="form-control"  placeholder="Price" v-model="newGame.price">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control"  placeholder="Tag" v-model="newGame.tag">
+                                <select class="custom-select" v-model="newGame.tag">
+                                  <option selected>Choose Tag</option>
+                                  <option :value="t.name" v-for="(t, index) in tag" :key="index" v-show="index != '.key'">{{t.name}}</option>
+                                </select>
                             </div>
                             <div class="form-group">
                             <textarea class="form-control" type="textarea"  maxlength="140" rows="7" v-model="newGame.detail"></textarea>
@@ -60,7 +63,7 @@ export default {
         name: '',
         price: '',
         detail: '',
-        tag: '',
+        tag: 'Choose Tag',
         img: ''
       }
     }
@@ -106,8 +109,8 @@ export default {
       this.newGame.img = ''
     },
     ...mapActions([
-      'binddataRef',
-      'unbinddataRef',
+      'bindtagRef',
+      'unbindtagRef',
       'newItem'
     ])
   },
@@ -116,15 +119,14 @@ export default {
       return this.images[Math.abs(this.currentNumber) % this.images.length]
     },
     ...mapGetters([
-      'data'
+      'tag'
     ])
   },
   created () {
-    this.binddataRef()
-    console.log(this.data)
+    this.bindtagRef()
   },
   destroyed () {
-    this.unbinddataRef()
+    this.unbindtagRef()
   }
 }
 </script>
