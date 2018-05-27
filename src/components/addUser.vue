@@ -7,18 +7,18 @@
               <div class="form-area">
                 <form role="form">
                   <br style="clear:both">
-                  <h3 style="margin-bottom: 25px; text-align: center;">Add New User</h3>
+                  <h3 style="margin-bottom: 25px; text-align: center;">Register</h3>
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Name" v-model="newGame.name">
+                    <input type="text" class="form-control"  placeholder="Email" v-model="newUser.email">
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Email" v-model="newGame.img">
+                    <input type="text" class="form-control" placeholder="Name" v-model="newUser.name">
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control"  placeholder="Password" v-model="newGame.price">
+                    <input type="password" class="form-control"  placeholder="Password" v-model="newUser.pass">
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control"  placeholder="Confirm Password" v-model="newGame.tag">
+                    <input type="password" class="form-control"  placeholder="Confirm Password" v-model="repass">
                   </div>
                 <button  id="submit" class="btn btn-success pull-right" @click="add">Register</button>
               </form>
@@ -38,37 +38,55 @@ export default {
   name: 'addUser',
   data () {
     return {
-      newGame: {
+      newUser: {
         name: '',
-        price: '',
-        detail: '',
-        tag: '',
-        img: ''
-      }
+        email: '',
+        pass: '',
+        admin: false
+      },
+      repass: ''
     }
   },
   mounted () {
   },
   methods: {
     add () {
-      if (this.newGame.name === '' || this.newGame.price === '' ||
-      this.newGame.tag === '' || this.newGame.detail === '' || this.newGame.img === '') {
+      this.getUser()
+      for (let i = 0; i < this.user.length; i++) {
+        if (this.newUser.email === this.user[i].email) {
+          this.$swal({
+            type: 'error',
+            title: 'มี Email นี้อยู่ในระบบแล้ว',
+            text: 'กรุณาใส่ให้ถูกต้อง'
+          })
+          return
+        }
+      }
+      if (!(this.newUser.pass === this.repass)) {
         this.$swal({
           type: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!'
+          title: 'รหัสผ่านไม่ตรงกัน',
+          text: 'กรุณาใส่ให้ถูกต้อง'
         })
         return
       }
-      if (!(/^[0-9]+$/.test(this.newGame.price))) {
+      if (this.newUser.name === '' || this.newUser.email === '' || this.newUser.pass === '') {
         this.$swal({
           type: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!'
+          title: 'ผิดพลาด',
+          text: 'กรุณาใส่ข้อมูลให้ถูกต้อง'
         })
         return
       }
-      this.newItem(this.newGame)
+      if (!(/^.+@.+$/.test(this.newUser.email))) {
+        this.$swal({
+          type: 'error',
+          title: 'Email ไม่ถูกต้อง',
+          text: 'กรุณาใส่ข้อมูลให้ถูกต้อง'
+        })
+        return
+      }
+      this.addUser(this.newUser)
       this.$swal({
         type: 'success',
         title: 'Data Saved',
@@ -81,32 +99,29 @@ export default {
           no-repeat
         `
       })
-      this.newGame.name = ''
-      this.newGame.price = ''
-      this.newGame.detail = ''
-      this.newGame.tag = ''
-      this.newGame.img = ''
+      this.newUser.name = ''
+      this.newUser.email = ''
+      this.newUser.pass = ''
+      this.repass = ''
     },
     ...mapActions([
-      'binddataRef',
-      'unbinddataRef',
-      'newItem'
+      'addUser',
+      'binduserRef',
+      'unbinduserRef',
+      'getUser'
     ])
   },
   computed: {
-    currentImage () {
-      return this.images[Math.abs(this.currentNumber) % this.images.length]
-    },
     ...mapGetters([
-      'data'
+      'user'
     ])
   },
   created () {
-    this.binddataRef()
-    console.log(this.data)
+    this.getUser()
+    this.binduserRef()
   },
   destroyed () {
-    this.unbinddataRef()
+    this.unbinduserRef()
   }
 }
 </script>
