@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import additem from '@/components/addItem'
 import addUser from '@/components/addUser'
+import order from '@/components/order'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/adduser',
       name: 'addUser',
       component: addUser
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: order
     }
   ]
 })
