@@ -33,11 +33,15 @@ export default {
     ...mapActions([
     ]),
     buying (item) {
-      if (this.user.money >= item.price) {
-        console.log('buying')
-        this.updateMoney(item.price)
+      if (confirm('ชำระสินค้า')) {
+        if (this.user.money >= item.price) {
+          console.log('buying')
+          this.updateMoney(item.price)
+        } else {
+          console.log('money not enough')
+        }
       } else {
-        console.log('money not enough')
+        return false
       }
     },
     updateMoney (itemPrice) {
