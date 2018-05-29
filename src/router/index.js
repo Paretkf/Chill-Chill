@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import additem from '@/components/addItem'
 import addUser from '@/components/addUser'
 import order from '@/components/order'
+import historyOrder from '@/components/historyOrder'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: order
+    },
+    {
+      path: '/historyOrder',
+      name: 'historyOrder',
+      component: historyOrder
     }
   ]
 })
