@@ -7,11 +7,18 @@ import order from '@/components/order'
 import historyOrder from '@/components/historyOrder'
 import login from '@/components/login'
 import addstock from '@/components/addStock'
+import editgame from '@/components/editGame'
+import edituser from '@/components/editUser'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/edituser',
+      name: 'edituser',
+      component: edituser
+    },
     {
       path: '/',
       name: 'Home',
@@ -46,6 +53,11 @@ export default new Router({
       path: '/addstock',
       name: 'addstock',
       component: addstock
+    },
+    {
+      path: '/editgame',
+      name: 'editgame',
+      component: editgame
     }
   ]
 })

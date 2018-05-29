@@ -42,16 +42,17 @@
           <div class="row">
             <div class="col-lg-4 col-md-6 mb-4" v-for="(d, index) in filteredList" :key="index" v-show="index != '.key'">
               <div class="card h-100">
-                <a href="#"><img class="card-img-top" :src="d.img" alt=""></a>
+                <img class="card-img-top" :src="d.img" alt="">
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#">{{d.name}}</a> <button @click="buying(d, index)">สั่งซื้อ</button>
+                    {{d.name}}
                   </h4>
                   <h5>Price {{d.price}} ฿</h5>
                   <p class="card-text">{{d.detail}}</p>
+                 <a href="#">#{{d.tag}}</a>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted"><h5>{{d.tag}}</h5></small>
+                  <small class="text-muted"><h5 v-if="loginUser.name"><button @click="buying(d, index)" class="btn btn-outline-primary">สั่งซื้อ</button></h5></small>
                 </div>
               </div>
             </div>
@@ -154,7 +155,6 @@ export default {
   created () {
     this.binddataRef()
     this.bindtagRef()
-    console.log(this.tag)
   },
   destroyed () {
     this.unbinddataRef()

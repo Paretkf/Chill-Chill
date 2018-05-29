@@ -112,6 +112,25 @@ export default {
     //     callRef.child(payload.ID + '/time').set(payload.time)
     //   })
     // },
+    // data: {
+    //   price: '',
+    //   detail: '',
+    //   tag: 'Choose Tag',
+    //   img: ''
+    // },
+    editGame (store, payload) {
+      var ref = db.ref('data/' + payload.id + '/price')
+      ref.set(payload.data.price)
+      ref = db.ref('data/' + payload.id + '/img')
+      ref.set(payload.data.img)
+      ref = db.ref('data/' + payload.id + '/tag')
+      ref.set(payload.data.tag)
+      ref = db.ref('data/' + payload.id + '/detail')
+      ref.set(payload.data.detail)
+    },
+    deleteGame (store, id) {
+      dataRef.child(id).remove()
+    },
     addStock (store, payload) {
       dataRef.child(payload.firebaseID + '/stock').push({
         key: payload.key,
