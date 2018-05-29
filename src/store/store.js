@@ -54,7 +54,10 @@ export default {
     },
     SET_UPDATEMONEY (state, payload) {
       state.loginUser.money = state.loginUser.money - payload.price
-      userRef.child(state.loginUser.firebaseID + '/historyOrder').push(payload)
+      userRef.child(state.loginUser.firebaseID + '/historyOrder').push({
+        payload,
+        key: '1234'
+      })
     },
     SET_UPDATESTOCK (state, payload) {
     }
