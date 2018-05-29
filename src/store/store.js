@@ -53,7 +53,10 @@ export default {
       state.loginUser = ''
     },
     SET_UPDATEMONEY (state, payload) {
-      state.loginUser.money = state.loginUser.money - payload
+      state.loginUser.money = state.loginUser.money - payload.price
+      userRef.child(state.loginUser.firebaseID + '/historyOrder').push(payload)
+    },
+    SET_UPDATESTOCK (state, payload) {
     }
   },
   actions: {
