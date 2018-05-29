@@ -52,7 +52,7 @@
                  <a href="#">#{{d.tag}}</a>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted"><h5 v-if="loginUser.name"><button @click="buying(d, index)" class="btn btn-outline-primary">สั่งซื้อ</button></h5></small>
+                  <small class="text-muted"><h5 v-if="loginUser.name && d.stock"><button @click="buying(d, index)" class="btn btn-outline-primary">สั่งซื้อ</button></h5></small>
                 </div>
               </div>
             </div>

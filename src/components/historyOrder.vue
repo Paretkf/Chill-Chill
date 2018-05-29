@@ -26,7 +26,7 @@
                 ส่งเรียบร้อย
             </td>
             <td>
-                +
+                <button class="btn btn-outline-success pull-right" @click="showData(d)">+</button>
             </td>
             </tr>
         </table>
@@ -47,7 +47,17 @@ export default {
   methods: {
     ...mapActions([
       'setHistoryOrder'
-    ])
+    ]),
+    showData (data) {
+      this.$swal({
+        title: data.payload.name,
+        text: 'Key : ' + data.key,
+        imageUrl: data.payload.img,
+        imageWidth: 400,
+        imageHeight: 200,
+        animation: false
+      })
+    }
   },
   computed: {
     ...mapGetters([
