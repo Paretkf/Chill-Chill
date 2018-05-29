@@ -5810,6 +5810,10 @@ sweetalert2@7.x:
   version "7.20.10"
   resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.20.10.tgz#83d6f5aee40c7b1582bd01e99fd9f81b76cdccbb"
 
+sweetalert2@^7.21.0:
+  version "7.21.0"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.21.0.tgz#556b9f647821aa6552dea621b4465ad81c192075"
+
 table@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/table/-/table-4.0.2.tgz#a33447375391e766ad34d3486e6e2aedc84d2e36"

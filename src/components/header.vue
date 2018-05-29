@@ -19,9 +19,11 @@
               </a>
             </li>
             <li class="nav-item"  v-else>
-              <a class="nav-link" @click="userLogin">
-                Login
-              </a>
+              <router-link to="/login">
+                <a class="nav-link">
+                  Login
+                </a>
+              </router-link>
             </li>
             <li class="nav-item" v-if="loginUser.admin">
               <router-link to="/additem"><a class="nav-link">Add Item</a></router-link>
@@ -53,60 +55,6 @@ export default {
       'login',
       'logout'
     ]),
-    userLogin () {
-      this.getUser()
-      this.$swal.mixin({
-        input: 'text',
-        confirmButtonText: 'Next',
-        showCancelButton: true,
-        cancelButtonText: 'Register',
-        progressSteps: ['1', '2']
-      }).queue([
-        {
-          title: 'Email',
-          text: 'Email ของท่านที่สมัครสมาชิก'
-        },
-        {
-          input: 'password',
-          title: 'Password',
-          text: 'รหัสผ่าน'
-        }
-      ]).then((result) => {
-        if (result.value) {
-          for (let i = 0; i < this.user.length; i++) {
-            if (result.value[0] === this.user[i].email) {
-              if (result.value[1] === this.user[i].pass) {
-                let loginUser = this.user[i]
-                console.log(loginUser)
-                this.login(loginUser)
-                this.$swal({
-                  type: 'success',
-                  title: 'Login Success',
-                  text: 'Login สำเร็จ'
-                })
-                break
-              } else {
-                this.$swal({
-                  type: 'error',
-                  title: 'รหัสผ่านไม่ถูกต้อง',
-                  text: 'กรุณาใส่ให้ถูกต้อง'
-                })
-              }
-            } else {
-              this.$swal({
-                type: 'error',
-                title: 'ไม่มีชื่อผู้ใช้นี้',
-                text: 'กรุณาใส่ให้ถูกต้อง'
-              })
-            }
-          }
-        } else if (
-          result.dismiss === this.$swal.DismissReason.cancel
-        ) {
-          this.$router.push({path: '/adduser'})
-        }
-      })
-    },
     userLogout () {
       this.logout()
     }
