@@ -68,8 +68,6 @@ export default {
       }
     }
   },
-  mounted () {
-  },
   methods: {
     add () {
       if (this.newGame.name === '' || this.newGame.price === '' ||
@@ -119,7 +117,8 @@ export default {
       return this.images[Math.abs(this.currentNumber) % this.images.length]
     },
     ...mapGetters([
-      'tag'
+      'tag',
+      'loginUser'
     ])
   },
   created () {
@@ -127,6 +126,11 @@ export default {
   },
   destroyed () {
     this.unbindtagRef()
+  },
+  mounted () {
+    if (!this.loginUser) {
+      this.$router.push({path: '/'})
+    }
   }
 }
 </script>

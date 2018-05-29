@@ -6,9 +6,12 @@
         <div class="col-lg-3">
           <h1 class="my-4">Category</h1>
           <div class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" >
+               <a href="#" @click="showTag('All')">All</a>
+            </li>
             <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(t, index) in tag"
             :key="index" v-show="!(index === '.key')">
-              {{t.name}}
+              <a href="#" @click="showTag(t.name)">{{t.name}}</a>
               <!-- <span class="badge badge-primary badge-pill">{{t.count}}</span> -->
             </li>
           </div>
@@ -40,7 +43,27 @@
             </a>
           </div>
           <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" v-for="(d, index) in filteredList" :key="index" v-show="index != '.key'">
+            <div class="col-lg-4 col-md-6 mb-4" v-for="(d, index) in filteredList" :key="index" v-show="index != '.key'" v-if="d.tag === search">
+              <div class="card h-100">
+                <img class="card-img-top" :src="d.img" alt="">
+                <div class="card-body">
+                  <h4 class="card-title">
+                    {{d.name}}
+                  </h4>
+                  <h5>Price {{d.price}} ฿</h5>
+                  <p class="card-text">{{d.detail}}</p>
+                 <a href="#">#{{d.tag}}</a>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted"><h5 v-if="!d.stock && loginUser.name"><button  class="btn btn-outline-danger" disabled>สินค้าหมด</button></h5></small>
+                  <small class="text-muted"><h5 v-if="loginUser.name && d.stock"><button @click="buying(d, index)" class="btn btn-outline-primary">สั่งซื้อ</button></h5></small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4" v-for="(d, index) in filteredList" :key="index" v-show="index != '.key'" v-if="search === 'All'">
               <div class="card h-100">
                 <img class="card-img-top" :src="d.img" alt="">
                 <div class="card-body">
@@ -53,6 +76,7 @@
                 </div>
                 <div class="card-footer">
                   <small class="text-muted"><h5 v-if="loginUser.name && d.stock"><button @click="buying(d, index)" class="btn btn-outline-primary">สั่งซื้อ</button></h5></small>
+                  <small class="text-muted"><h5 v-if="!d.stock && loginUser.name"><button  class="btn btn-outline-danger" disabled>สินค้าหมด</button></h5></small>
                 </div>
               </div>
             </div>
@@ -88,13 +112,18 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       images: ['https://www.img.in.th/images/8a49d4cf9cf0d9ec982bf06a351d1423.png', 'https://www.img.in.th/images/2b51c55de678adaa5e95de2c4b982a59.png', 'https://www.img.in.th/images/00edf0ca588b40400a502dcfa42bf470.png'],
       currentNumber: 0,
-      search: ''
+      search: 'All'
     }
   },
   mounted () {
+    this.binddataRef()
+    this.bindtagRef()
     this.startRotation()
   },
   methods: {
+    showTag (tag) {
+      this.search = tag
+    },
     startRotation () {
       this.timer = setInterval(this.next, 3000)
     },
@@ -125,17 +154,32 @@ export default {
         id: index
 
       }
-      if (confirm('ชำระสินค้า')) {
-        if (this.loginUser.money >= item.price) {
-          console.log('buying')
-          this.updateMoney(arr)
-          console.log(this.loginUser.money)
-        } else {
-          console.log('money not enough')
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'คุณต้องการซื้อสินค้าหรือไม่!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Buy it!'
+      }).then((result) => {
+        if (result.value) {
+          this.$swal(
+            'สั่งซื้อสำเร็จ!',
+            'รับสินค้าที่ประวัติสั่งซื้อ.',
+            'success'
+          )
+          if (this.loginUser.money >= item.price) {
+            this.updateMoney(arr)
+          } else {
+            this.$swal({
+              title: 'เงินไม่เพียงพอ!',
+              animation: false,
+              customClass: 'animated tada'
+            })
+          }
         }
-      } else {
-        return false
-      }
+      })
     }
   },
   computed: {

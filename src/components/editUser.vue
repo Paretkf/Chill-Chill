@@ -27,6 +27,9 @@
                             <th class="text-center">
                                 เติมเงิน
                             </th>
+                            <th class="text-center">
+                                จำนวนเงินที่เติม
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +50,7 @@
                                 <button  id="submit" class="btn btn-outline-info pull-right" @click="addMoneyfirst()">เติมเงิน</button>
                             </td>
                             <td>
-                                <input type="text" v-model="inputMoney">
+                                <input type="text" v-model="inputMoney" class="form-control">
                             </td>
                         </tr>
                     </tbody>
@@ -72,8 +75,6 @@ export default {
     return {
       inputMoney: 0
     }
-  },
-  mounted () {
   },
   methods: {
     addMoneyfirst () {
@@ -105,6 +106,11 @@ export default {
   },
   destroyed () {
     this.unbinduserRef()
+  },
+  mounted () {
+    if (!this.loginUser) {
+      this.$router.push({path: '/'})
+    }
   }
 }
 </script>

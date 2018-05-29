@@ -22,11 +22,6 @@
                 </a>
               </router-link>
             </li>
-            <li class="nav-item" v-if="loginUser.name">
-              <a class="nav-link" @click="userLogout()">
-                Logout
-              </a>
-            </li>
             <li class="nav-item"  v-else>
               <router-link to="/login">
                 <a class="nav-link">
@@ -45,6 +40,13 @@
             </li>
             <li class="nav-item " v-if="loginUser.name">
              <router-link to="/historyOrder"> <a class="nav-link" href="/">Buy History</a> </router-link>
+            </li>
+            <li class="nav-item" v-if="loginUser.name">
+              <a class="nav-link" @click="userLogout()">
+              <button class="btn btn-danger btn-sm">
+                Logout
+              </button>
+              </a>
             </li>
           </ul>
         </div>
@@ -72,6 +74,7 @@ export default {
     ]),
     userLogout () {
       this.logout()
+      this.$router.push({path: '/'})
     }
   },
   computed: {

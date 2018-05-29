@@ -57,8 +57,6 @@ export default {
       key: ''
     }
   },
-  mounted () {
-  },
   methods: {
     ...mapActions([
       'binddataRef',
@@ -71,11 +69,25 @@ export default {
         key: this.key,
         date: Date()
       })
+      this.key = ''
+      this.$swal({
+        type: 'success',
+        title: 'Data Saved',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `
+          rgba(0,0,123,0.4)
+          url("https://media.giphy.com/media/sIIhZliB2McAo/giphy.gif")
+          center left
+          no-repeat
+        `
+      })
     }
   },
   computed: {
     ...mapGetters([
-      'data'
+      'data',
+      'loginUser'
     ])
   },
   created () {
@@ -83,6 +95,11 @@ export default {
   },
   destroyed () {
     this.unbinddataRef()
+  },
+  mounted () {
+    if (!this.loginUser) {
+      this.$router.push({path: '/'})
+    }
   }
 }
 </script>

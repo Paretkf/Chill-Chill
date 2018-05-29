@@ -82,6 +82,9 @@ export default {
     }
   },
   mounted () {
+    if (!this.loginUser) {
+      this.$router.push({path: '/'})
+    }
   },
   methods: {
     setID (id) {
@@ -164,7 +167,8 @@ export default {
     },
     ...mapGetters([
       'tag',
-      'data'
+      'data',
+      'loginUser'
     ])
   },
   created () {

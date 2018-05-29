@@ -43,6 +43,9 @@ export default {
     }
   },
   mounted () {
+    if (!this.loginUser) {
+      this.$router.push({path: '/'})
+    }
   },
   methods: {
     ...mapActions([
@@ -61,7 +64,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'historyOrder'
+      'historyOrder',
+      'loginUser'
     ])
   },
   created () {

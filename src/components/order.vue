@@ -22,8 +22,6 @@ export default {
       ]
     }
   },
-  mounted () {
-  },
   methods: {
     ...mapActions([
       'updateMoney'
@@ -47,6 +45,11 @@ export default {
       'user',
       'loginUser'
     ])
+  },
+  mounted () {
+    if (!this.loginUser) {
+      this.$router.push({path: '/'})
+    }
   }
 }
 </script>
