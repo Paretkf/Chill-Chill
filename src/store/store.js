@@ -21,13 +21,15 @@ export default {
     data: {},
     tag: {},
     user: {},
-    loginUser: ''
+    loginUser: '',
+    historyOrder: {}
   },
   getters: {
     data: state => state.data,
     tag: state => state.tag,
     user: state => state.user,
-    loginUser: state => state.loginUser
+    loginUser: state => state.loginUser,
+    historyOrder: state => state.historyOrder
   },
   mutations: {
     ...firebaseMutations,
@@ -60,6 +62,13 @@ export default {
       })
     },
     SET_UPDATESTOCK (state, payload) {
+    },
+    SET_HISTORYORDER (state) {
+      var ref = db.ref('user/' + state.loginUser.firebaseID + '/historyOrder')
+      ref.on('value', (snapshot) => {
+        state.historyOrder = snapshot.val()
+        console.log(state.historyOrder)
+      })
     }
   },
   actions: {
@@ -103,6 +112,9 @@ export default {
     },
     updateMoney (store, payload) {
       store.commit('SET_UPDATEMONEY', payload)
+    },
+    setHistoryOrder (store) {
+      store.commit('SET_HISTORYORDER')
     },
     binddataRef: firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }) => {
       bindFirebaseRef('data', dataRef)

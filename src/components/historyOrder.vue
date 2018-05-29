@@ -15,12 +15,12 @@
                 ดูสินค้า
             </th>
             </tr>
-            <tr>
+            <tr v-for="(d, index) in historyOrder" :key="index" >
             <td>
-                0007890
+                {{index}}
             </td>
             <td>
-                Wallpaper Engine
+                {{d.payload.name}}
             </td>
             <td>
                 ส่งเรียบร้อย
@@ -46,11 +46,16 @@ export default {
   },
   methods: {
     ...mapActions([
+      'setHistoryOrder'
     ])
   },
   computed: {
     ...mapGetters([
+      'historyOrder'
     ])
+  },
+  created () {
+    this.setHistoryOrder()
   }
 }
 </script>
