@@ -62,10 +62,15 @@ export default {
   methods: {
     ...mapActions([
       'binddataRef',
-      'unbinddataRef'
+      'unbinddataRef',
+      'addStock'
     ]),
     addKey () {
-      console.log(this.gameID + ' : ' + this.key)
+      this.addStock({
+        firebaseID: this.gameID,
+        key: this.key,
+        date: Date()
+      })
     }
   },
   computed: {

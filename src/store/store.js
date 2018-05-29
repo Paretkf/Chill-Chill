@@ -55,10 +55,27 @@ export default {
       state.loginUser = ''
     },
     SET_UPDATEMONEY (state, payload) {
+      var arr = []
+      var ref = db.ref('data/' + payload.id + '/stock')
+      var keyGame = []
+      ref.on('value', (snapshot) => {
+        keyGame = snapshot.val()
+      })
+      for (var index in keyGame) {
+        if (keyGame.hasOwnProperty(index)) {
+          arr.push({
+            keygame: keyGame[index],
+            firebaseID: index
+          })
+        }
+      }
+      var newKey = arr.pop()
+      ref.child(newKey.firebaseID).remove()
+      // console.log('Remove : ' + keyGame)
       state.loginUser.money = state.loginUser.money - payload.price
       userRef.child(state.loginUser.firebaseID + '/historyOrder').push({
         payload,
-        key: '1234'
+        key: newKey.keygame.key
       })
     },
     SET_UPDATESTOCK (state, payload) {
@@ -95,6 +112,12 @@ export default {
     //     callRef.child(payload.ID + '/time').set(payload.time)
     //   })
     // },
+    addStock (store, payload) {
+      dataRef.child(payload.firebaseID + '/stock').push({
+        key: payload.key,
+        date: payload.date
+      })
+    },
     logout (store) {
       store.commit('SET_LOGOUTUSER')
     },

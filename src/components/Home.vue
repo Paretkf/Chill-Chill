@@ -45,7 +45,7 @@
                 <a href="#"><img class="card-img-top" :src="d.img" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#">{{d.name}}</a>
+                    <a href="#">{{d.name}}</a> <button @click="buying(d, index)">สั่งซื้อ</button>
                   </h4>
                   <h5>Price {{d.price}} ฿</h5>
                   <p class="card-text">{{d.detail}}</p>
@@ -111,8 +111,31 @@ export default {
       'binddataRef',
       'unbinddataRef',
       'bindtagRef',
-      'unbindtagRef'
-    ])
+      'unbindtagRef',
+      'updateMoney'
+    ]),
+    buying (item, index) {
+      var arr = {
+        price: item.price,
+        name: item.name,
+        tag: item.tag,
+        detail: item.detail,
+        img: item.img,
+        id: index
+
+      }
+      if (confirm('ชำระสินค้า')) {
+        if (this.loginUser.money >= item.price) {
+          console.log('buying')
+          this.updateMoney(arr)
+          console.log(this.loginUser.money)
+        } else {
+          console.log('money not enough')
+        }
+      } else {
+        return false
+      }
+    }
   },
   computed: {
     currentImage () {
@@ -121,7 +144,8 @@ export default {
     ...mapGetters([
       'data',
       'tag',
-      'user'
+      'user',
+      'loginUser'
     ]),
     filteredList () {
       return this.data
