@@ -13,9 +13,11 @@ export default {
     return {
       items: [
         {
-          id: 'a01',
-          name: 'csgo',
-          price: '250'
+          detail: 'asdasd',
+          img: 'dda',
+          name: 'ark',
+          price: 1000,
+          tag: 'action'
         }
       ]
     }
@@ -30,7 +32,7 @@ export default {
       if (confirm('ชำระสินค้า')) {
         if (this.loginUser.money >= item.price) {
           console.log('buying')
-          this.updateMoney(item.price)
+          this.updateMoney(item)
           console.log(this.loginUser.money)
         } else {
           console.log('money not enough')

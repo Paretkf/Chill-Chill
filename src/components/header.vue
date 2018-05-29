@@ -32,7 +32,7 @@
               <router-link to="/addstock"><a class="nav-link">Add Stock</a></router-link>
             </li>
             <li class="nav-item " v-if="loginUser.name">
-              <a class="nav-link" href="#">Buy History</a>
+             <router-link to="/historyOrder"> <a class="nav-link" href="/">Buy History</a> </router-link>
             </li>
           </ul>
         </div>
