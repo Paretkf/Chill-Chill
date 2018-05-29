@@ -51,6 +51,9 @@ export default {
     },
     SET_LOGOUTUSER (state) {
       state.loginUser = ''
+    },
+    SET_UPDATEMONEY (state, payload) {
+      state.loginUser.money = state.loginUser.money - payload
     }
   },
   actions: {
@@ -91,6 +94,9 @@ export default {
     },
     newItem (store, payload) {
       dataRef.push(payload)
+    },
+    updateMoney (store, payload) {
+      store.commit('SET_UPDATEMONEY', payload)
     },
     binddataRef: firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }) => {
       bindFirebaseRef('data', dataRef)
