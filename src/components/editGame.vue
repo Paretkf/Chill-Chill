@@ -92,7 +92,6 @@ export default {
       console.log(this.index)
     },
     remove () {
-      this.deleteGame(this.game.index)
       this.$swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -103,6 +102,7 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
+          this.deleteGame(this.game.index)
           this.$swal(
             'Deleted!',
             'Your file has been deleted.',

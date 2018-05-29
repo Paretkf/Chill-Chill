@@ -9,11 +9,17 @@ import login from '@/components/login'
 import addstock from '@/components/addStock'
 import editgame from '@/components/editGame'
 import edituser from '@/components/editUser'
+import addtag from '@/components/addTag'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/addtag',
+      name: 'addtag',
+      component: addtag
+    },
     {
       path: '/edituser',
       name: 'edituser',

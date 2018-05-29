@@ -30,13 +30,16 @@
               </router-link>
             </li>
             <li class="nav-item" v-if="loginUser.admin">
-              <router-link to="/additem"><a class="nav-link">Add Item</a></router-link>
+              <router-link to="/additem"><a class="nav-link">Add-Item</a></router-link>
             </li>
             <li class="nav-item" v-if="loginUser.admin">
-              <router-link to="/editgame"><a class="nav-link">Edit Item</a></router-link>
+              <router-link to="/editgame"><a class="nav-link">Edit-Item</a></router-link>
             </li>
             <li class="nav-item" v-if="loginUser.admin">
-              <router-link to="/addstock"><a class="nav-link">Add Stock</a></router-link>
+              <router-link to="/addstock"><a class="nav-link">Add-Stock</a></router-link>
+            </li>
+            <li class="nav-item" v-if="loginUser.admin">
+              <router-link to="/addtag"><a class="nav-link">Tag</a></router-link>
             </li>
             <li class="nav-item " v-if="loginUser.name">
              <router-link to="/historyOrder"> <a class="nav-link" href="/">Buy History</a> </router-link>

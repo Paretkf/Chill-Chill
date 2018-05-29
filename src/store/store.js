@@ -123,6 +123,15 @@ export default {
     //   tag: 'Choose Tag',
     //   img: ''
     // },
+    addTag (store, tag) {
+      tagRef.push({
+        name: tag,
+        count: 1
+      })
+    },
+    removeTag (store, tag) {
+      tagRef.child(tag).remove()
+    },
     editGame (store, payload) {
       var ref = db.ref('data/' + payload.id + '/price')
       ref.set(payload.data.price)
