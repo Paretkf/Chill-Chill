@@ -1,7 +1,6 @@
 <template>
   <div class="hello">
  <button @click="buying(items[0])">สั่งซื้อ</button>
- {{user}}
   </div>
 </template>
 
@@ -12,12 +11,6 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      user: {
-        id: '001',
-        user: 'inwza',
-        password: '123456789',
-        money: 300
-      },
       items: [
         {
           id: 'a01',
@@ -51,8 +44,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-    //   'user',
-    //   'loginUser'
+      'user',
+      'loginUser'
     ])
   }
 }
