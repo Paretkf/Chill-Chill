@@ -24,22 +24,20 @@ export default {
   },
   methods: {
     ...mapActions([
+      'updateMoney'
     ]),
     buying (item) {
       if (confirm('ชำระสินค้า')) {
-        if (this.user.money >= item.price) {
+        if (this.loginUser.money >= item.price) {
           console.log('buying')
           this.updateMoney(item.price)
+          console.log(this.loginUser.money)
         } else {
           console.log('money not enough')
         }
       } else {
         return false
       }
-    },
-    updateMoney (itemPrice) {
-      this.user.money = this.user.money - itemPrice
-      console.log(this.user.money)
     }
   },
   computed: {
