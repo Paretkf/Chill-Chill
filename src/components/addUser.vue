@@ -42,7 +42,8 @@ export default {
         name: '',
         email: '',
         pass: '',
-        admin: false
+        admin: false,
+        money: 50000
       },
       repass: ''
     }
