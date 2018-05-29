@@ -28,6 +28,9 @@
             <li class="nav-item" v-if="loginUser.admin">
               <router-link to="/additem"><a class="nav-link">Add Item</a></router-link>
             </li>
+            <li class="nav-item" v-if="loginUser.admin">
+              <router-link to="/addstock"><a class="nav-link">Add Stock</a></router-link>
+            </li>
             <li class="nav-item " v-if="loginUser.name">
               <a class="nav-link" href="#">Buy History</a>
             </li>

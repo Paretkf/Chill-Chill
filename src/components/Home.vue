@@ -40,7 +40,7 @@
             </a>
           </div>
           <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" v-for="(d, index) in data" :key="index" v-show="index != '.key'">
+            <div class="col-lg-4 col-md-6 mb-4" v-for="(d, index) in filteredList" :key="index" v-show="index != '.key'">
               <div class="card h-100">
                 <a href="#"><img class="card-img-top" :src="d.img" alt=""></a>
                 <div class="card-body">
@@ -86,7 +86,8 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       images: ['https://www.img.in.th/images/8a49d4cf9cf0d9ec982bf06a351d1423.png', 'https://www.img.in.th/images/2b51c55de678adaa5e95de2c4b982a59.png', 'https://www.img.in.th/images/00edf0ca588b40400a502dcfa42bf470.png'],
-      currentNumber: 0
+      currentNumber: 0,
+      search: ''
     }
   },
   mounted () {
@@ -119,8 +120,12 @@ export default {
     },
     ...mapGetters([
       'data',
-      'tag'
-    ])
+      'tag',
+      'user'
+    ]),
+    filteredList () {
+      return this.data
+    }
   },
   created () {
     this.binddataRef()

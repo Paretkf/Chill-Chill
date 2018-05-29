@@ -6,6 +6,7 @@ import addUser from '@/components/addUser'
 import order from '@/components/order'
 import historyOrder from '@/components/historyOrder'
 import login from '@/components/login'
+import addstock from '@/components/addStock'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/historyOrder',
       name: 'historyOrder',
       component: historyOrder
+    },
+    {
+      path: '/addstock',
+      name: 'addstock',
+      component: addstock
     }
   ]
 })
