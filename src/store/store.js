@@ -73,6 +73,7 @@ export default {
       ref.child(newKey.firebaseID).remove()
       // console.log('Remove : ' + keyGame)
       state.loginUser.money = state.loginUser.money - payload.price
+      userRef.child(state.loginUser.firebaseID + '/money').set(state.loginUser.money)
       userRef.child(state.loginUser.firebaseID + '/historyOrder').push({
         payload,
         key: newKey.keygame.key
@@ -86,6 +87,10 @@ export default {
         state.historyOrder = snapshot.val()
         console.log(state.historyOrder)
       })
+    },
+    SET_ADDMONEY (state, payload) {
+      state.loginUser.money = parseInt(state.loginUser.money) + parseInt(payload)
+      userRef.child(state.loginUser.firebaseID + '/money').set(state.loginUser.money)
     }
   },
   actions: {
@@ -130,6 +135,9 @@ export default {
     },
     deleteGame (store, id) {
       dataRef.child(id).remove()
+    },
+    addMoney (store, payload) {
+      store.commit('SET_ADDMONEY', payload)
     },
     addStock (store, payload) {
       dataRef.child(payload.firebaseID + '/stock').push({

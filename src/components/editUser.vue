@@ -44,7 +44,10 @@
                                 {{loginUser.money}}
                             </td>
                             <td data-name="del">
-                                <button  id="submit" class="btn btn-outline-info pull-right" @click="add">เติมเงิน</button>
+                                <button  id="submit" class="btn btn-outline-info pull-right" @click="addMoneyfirst()">เติมเงิน</button>
+                            </td>
+                            <td>
+                                <input type="text" v-model="inputMoney">
                             </td>
                         </tr>
                     </tbody>
@@ -67,78 +70,27 @@ export default {
   name: 'addUser',
   data () {
     return {
-      newUser: {
-        name: '',
-        email: '',
-        pass: '',
-        admin: false,
-        money: 50000
-      },
-      repass: ''
+      inputMoney: 0
     }
   },
   mounted () {
   },
   methods: {
-    add () {
-      this.getUser()
-      for (let i = 0; i < this.user.length; i++) {
-        if (this.newUser.email === this.user[i].email) {
-          this.$swal({
-            type: 'error',
-            title: 'มี Email นี้อยู่ในระบบแล้ว',
-            text: 'กรุณาใส่ให้ถูกต้อง'
-          })
-          return
-        }
+    addMoneyfirst () {
+      if (this.inputMoney > 0) {
+        console.log(this.inputMoney)
+        this.addMoney(this.inputMoney)
+        this.inputMoney = 0
+      } else {
+        return 0
       }
-      if (!(this.newUser.pass === this.repass)) {
-        this.$swal({
-          type: 'error',
-          title: 'รหัสผ่านไม่ตรงกัน',
-          text: 'กรุณาใส่ให้ถูกต้อง'
-        })
-        return
-      }
-      if (this.newUser.name === '' || this.newUser.email === '' || this.newUser.pass === '') {
-        this.$swal({
-          type: 'error',
-          title: 'ผิดพลาด',
-          text: 'กรุณาใส่ข้อมูลให้ถูกต้อง'
-        })
-        return
-      }
-      if (!(/^.+@.+$/.test(this.newUser.email))) {
-        this.$swal({
-          type: 'error',
-          title: 'Email ไม่ถูกต้อง',
-          text: 'กรุณาใส่ข้อมูลให้ถูกต้อง'
-        })
-        return
-      }
-      this.addUser(this.newUser)
-      this.$swal({
-        type: 'success',
-        title: 'Data Saved',
-        showConfirmButton: false,
-        timer: 1800,
-        backdrop: `
-          rgba(0,0,123,0.4)
-          url("https://media.giphy.com/media/sIIhZliB2McAo/giphy.gif")
-          center left
-          no-repeat
-        `
-      })
-      this.newUser.name = ''
-      this.newUser.email = ''
-      this.newUser.pass = ''
-      this.repass = ''
     },
     ...mapActions([
       'addUser',
       'binduserRef',
       'unbinduserRef',
-      'getUser'
+      'getUser',
+      'addMoney'
     ])
   },
   computed: {

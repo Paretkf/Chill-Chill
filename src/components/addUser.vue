@@ -43,7 +43,7 @@ export default {
         email: '',
         pass: '',
         admin: false,
-        money: 50000
+        money: 0
       },
       repass: ''
     }
